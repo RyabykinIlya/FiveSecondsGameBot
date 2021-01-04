@@ -1,0 +1,15 @@
+version: '2.2'
+
+services:
+  postgres:
+    image: postgres:10.1
+#    command: /var/lib/postgresql/preinstall/run_postgres.sh
+    restart: "always"
+    container_name: fivesecs-postgres
+    hostname: fivesecs-postgres
+    env_file:
+      - postgres/environment
+    ports:
+      - 5439:5432
+    volumes:
+      - ./postgres:/var/lib/postgresql/preinstall

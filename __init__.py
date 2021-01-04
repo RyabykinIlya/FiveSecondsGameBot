@@ -1,0 +1,1 @@
+all = ["five_secs_django", "bot"]
