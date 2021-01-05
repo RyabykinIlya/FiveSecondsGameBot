@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from five_secs_django.main.views import webhook_in
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('<str:token>', webhook_in),
 ]

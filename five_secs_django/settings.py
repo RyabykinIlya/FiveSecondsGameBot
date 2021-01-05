@@ -28,10 +28,10 @@ DEBUG = False
 if os.environ.get("DEV"):
     DEBUG = True
 
-if os.environ.get("HEROKU"):
-    ALLOWED_HOSTS = ['.herokuapp.com']
+if DEBUG:
+    ALLOWED_HOSTS = [os.environ.get("HEROKU_APP_NAME"), '127.0.0.1']
 else:
-    ALLOWED_HOSTS = []
+    ALLOWED_HOSTS = ['.herokuapp.com']
 
 # Application definition
 

@@ -4,13 +4,13 @@ import re
 import importlib
 
 # export PYTHONPATH=/home/iryabykin/DATA/shared/Development/five_seconds_bot
-# python bot/start.py
+# python bot/dispatcher.py
 
-import django
-import os
+# import django
+# import os
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "five_secs_django.settings")
-django.setup()
+# os.environ.setdefault("DJANGO_SETTINGS_MODULE", "five_secs_django.settings")
+# django.setup()
 
 from bot.handlers import button
 from bot.utils import get_chat, initialize_state_if_not, remove_last_markup
@@ -62,4 +62,4 @@ button_handler = CallbackQueryHandler(button)
 
 dispatcher.add_handler(all_handler)
 dispatcher.add_handler(button_handler)
-updater.start_polling()
+# updater.start_polling()
