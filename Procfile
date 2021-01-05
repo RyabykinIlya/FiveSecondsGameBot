@@ -1,2 +1,2 @@
 release: python manage.py migrate
-web: python3 bot/start.py
+worker: python3 bot/start.py
