@@ -7,7 +7,7 @@ from bot.utils import get_chat, ask_next_user, ask_user, get_participants, send_
     get_next_user_id, mention_user
 from bot.markups import get_next_button_markup, get_complexity_buttons_markup, get_participants_buttons_markup, \
     get_reset_buttons_markup
-from bot import settings
+
 
 def start(update: Update, context: CallbackContext, chat: Chat) -> None:
     url = helpers.create_deep_linked_url(context.bot.get_me().username, "lets-play", group=True)
@@ -45,9 +45,9 @@ def register(update: Update, context: CallbackContext, chat: Chat) -> None:
             state.current_user = user
             state.started_from = user
             state.save()
-        context.bot.send_message(chat_id=chat_id, text="%s зарегистрирован" % username)
+        context.bot.send_message(chat_id=chat_id, text="%s зарегистрирован" % user.call_name)
     else:
-        context.bot.send_message(chat_id=chat_id, text="%s уже зарегистрирован" % username)
+        context.bot.send_message(chat_id=chat_id, text="%s уже зарегистрирован" % user.call_name)
 
 
 # /unreg n
@@ -188,7 +188,7 @@ def button(update: Update, context: CallbackContext) -> None:
             state.started_from = first_registered
         state.save()
 
-        query.edit_message_text(text="%s исключён" % user.username, reply_markup=None)
+        query.edit_message_text(text="%s исключён" % user.call_name, reply_markup=None)
     elif response.startswith("question_"):
         state = State.objects.get(chat=chat)
         user = state.current_user
@@ -203,7 +203,7 @@ def button(update: Update, context: CallbackContext) -> None:
             send_markup_message(
                 state,
                 query.edit_message_text,
-                text=f"Отлично, %s, у тебя %s очков" % (user.username, score.score),
+                text=f"Отлично, %s, у тебя %s очков" % (user.call_name, score.score),
                 reply_markup=get_next_button_markup()
             )
         elif response == "question_failed":

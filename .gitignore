@@ -2,5 +2,10 @@
 postgres/
 venv/
 
-.env
+dev.env
 questions.py
+
+### Python ###
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]

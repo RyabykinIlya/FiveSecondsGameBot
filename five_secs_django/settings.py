@@ -77,14 +77,8 @@ AUTH_USER_MODEL = "main.User"
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 
-db_conn = {
-    "user": os.environ.get("POSTGRE_USER"),
-    "pass": os.environ.get("POSTGRE_PASS"),
-    "host": os.environ.get("POSTGRE_HOST"),
-    "port": os.environ.get("POSTGRE_PORT"),
-    "scheme": os.environ.get("POSTGRE_SCHEME"),
-}
-database_url = "postgres://{user}:{pass}@{host}:{port}/{scheme}".format(**db_conn)
+
+database_url = os.environ.get("DATABASE_URL")
 DATABASES = {"default": dj_database_url.config(default=database_url, conn_max_age=0)}
 
 # Password validation

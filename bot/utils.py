@@ -12,10 +12,10 @@ User = get_user_model()
 
 def get_participants(chat, as_list=False):
     participants = chat.registered_users.all().prefetch_related('score').filter(score__chat=chat).values_list('id',
-                                                                                                              'username',
+                                                                                                              'call_name',
                                                                                                               'score__score')
     if participants and not as_list:
-        return '\n'.join(["%s. %s (%s очков)" % (id, username, score) for id, username, score in participants])
+        return '\n'.join(["%s (%s очков)" % (call_name, score) for id, call_name, score in participants])
     elif participants and as_list:
         return participants
 
@@ -90,7 +90,7 @@ def send_markup_message(state, func, **kwargs):
 
 
 def mention_user(user, message):
-    return '<a href="tg://user?id=%s">%s</a>, %s' % (user.telegram_id, user.username, message)
+    return '<a href="tg://user?id=%s">%s</a>, %s' % (user.telegram_id, user.call_name, message)
 
 
 def ask_user(chat, bot):

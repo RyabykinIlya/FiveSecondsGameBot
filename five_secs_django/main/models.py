@@ -4,10 +4,28 @@ from django.utils import timezone
 from django.contrib.auth import get_user_model
 
 
+def get_random_username(self):
+    next_id = str(User.objects.last().id + 1)
+    print(next_id)
+    return next_id
+
+
 class User(AbstractUser):
+    username = models.CharField(max_length=150, unique=True)
     telegram_id = models.IntegerField(null=True)
+    call_name = models.CharField(max_length=150, null=True)
     language_code = models.CharField(max_length=10, null=True)
     registration_date = models.DateTimeField(default=timezone.now)
+
+    USERNAME_FIELD = ("username")
+
+    def save(self, *args, **kwargs):
+        if not self.username:
+            self.username = self.telegram_id
+            self.call_name = "%s %s" % (self.last_name, self.first_name)
+        else:
+            self.call_name = self.username
+        super().save(*args, **kwargs)
 
 
 class FiveSecQuestion(models.Model):
