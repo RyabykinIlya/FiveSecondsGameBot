@@ -15,7 +15,6 @@ class User(AbstractUser):
     telegram_id = models.IntegerField(null=True)
     call_name = models.CharField(max_length=150, null=True)
     language_code = models.CharField(max_length=10, null=True)
-    registration_date = models.DateTimeField(default=timezone.now)
 
     USERNAME_FIELD = ("username")
 
