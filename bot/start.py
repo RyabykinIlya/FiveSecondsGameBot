@@ -44,7 +44,11 @@ def handlers_dispatcher(update: Update, context: CallbackContext) -> None:
     remove_last_markup(chat, context)
 
     if not hasattr(chat, "state"):
-        initialize_state_if_not(chat=chat)
+        try:
+            initialize_state_if_not(chat=chat)
+        except IndexError:
+            update.message.reply_text("Извините, но админ не добавил вопросы :/\nНапишите ему, если хочется поиграть.")
+            return
 
     handler(update, context, chat)
 
