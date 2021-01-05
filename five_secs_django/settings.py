@@ -28,7 +28,10 @@ DEBUG = False
 if os.environ.get("DEV"):
     DEBUG = True
 
-ALLOWED_HOSTS = []
+if os.environ.get("HEROKU"):
+    ALLOWED_HOSTS = ['.herokuapp.com']
+else:
+    ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -75,7 +78,6 @@ AUTH_USER_MODEL = "main.User"
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
 
 
 database_url = os.environ.get("DATABASE_URL")
