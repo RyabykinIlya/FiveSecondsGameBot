@@ -37,8 +37,7 @@ def handlers_dispatcher(update: Update, context: CallbackContext) -> None:
     except AttributeError:
         return
 
-    chat_id = update.effective_chat["id"]
-    chat, _ = get_chat(chat_id)
+    chat = get_chat(chat=update.effective_chat)
 
     # cleanup not answered reply_markups
     remove_last_markup(chat, context)

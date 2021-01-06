@@ -39,6 +39,8 @@ class FiveSecQuestion(models.Model):
 
 class Chat(models.Model):
     chat_id = models.IntegerField()
+    chat_name = models.CharField(max_length=150, null=True)
+    chat_type = models.CharField(max_length=50, null=True)
     registered_users = models.ManyToManyField(get_user_model(), related_name="chats")
     answered_questions = models.ManyToManyField(FiveSecQuestion, related_name="chats")
     answer_interval = models.PositiveSmallIntegerField(default=5)

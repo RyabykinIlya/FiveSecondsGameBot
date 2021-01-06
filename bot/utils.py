@@ -20,12 +20,25 @@ def get_participants(chat, as_list=False):
         return participants
 
 
-def get_chat(chat_id):
-    return (
+def get_chat(chat=None, chat_id=None) -> Chat:
+    # get chat as json or chat_id
+    defaults = {}
+    if chat:
+        chat_id = chat["id"]
+        chat_type = chat["type"]
+        print(chat_type, chat)
+        defaults = {
+            "chat_type": chat_type,
+            "chat_name": chat["title"] if chat_type == "group" else None
+        }
+
+    chat, _ = (
         Chat.objects
             .prefetch_related("registered_users", "answered_questions", "state", "score")
-            .get_or_create(chat_id=chat_id)
+            .update_or_create(chat_id=chat_id, defaults=defaults)
     )
+
+    return chat
 
 
 # def get_question(chat):

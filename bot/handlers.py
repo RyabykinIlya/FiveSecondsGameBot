@@ -105,24 +105,21 @@ def play(*args, **kwargs) -> None:
 
 
 def timer(update: Update, context: CallbackContext, chat: Chat) -> None:
-    chat_id = update.effective_chat.id
-    chat, _ = get_chat(chat_id)
     interval = update.message["text"]
     try:
         interval = int(interval.split('/timer ')[1])
-        chat, _ = get_chat(chat_id)
         chat.answer_interval = interval
         chat.save()
         message = "Интервал %s секунд сохранён" % interval
     except (ValueError, IndexError):
         message = "Интервал должен быть числом, пример: /timer 5"
 
-    context.bot.send_message(chat_id=chat_id, text=message)
+    context.bot.send_message(chat_id=chat.chat_id, text=message)
 
 
 def set_complexity(update: Update, context: CallbackContext, chat: Chat) -> None:
     chat_id = update.effective_chat.id
-    chat, _ = get_chat(chat_id)
+    chat = get_chat(chat_id=chat_id)
     send_markup_message(
         chat.state,
         update.message.reply_text,
@@ -133,7 +130,7 @@ def set_complexity(update: Update, context: CallbackContext, chat: Chat) -> None
 
 def reset(update: Update, context: CallbackContext, chat: Chat) -> None:
     chat_id = update.effective_chat.id
-    chat, _ = get_chat(chat_id)
+    chat = get_chat(chat_id=chat_id)
     send_markup_message(
         chat.state,
         update.message.reply_text,
@@ -143,9 +140,10 @@ def reset(update: Update, context: CallbackContext, chat: Chat) -> None:
 
 
 def button(update: Update, context: CallbackContext) -> None:
+    # TODO make segmentation
     query = update.callback_query
     chat_id = update.effective_chat["id"]
-    chat, _ = get_chat(chat_id)
+    chat = get_chat(chat_id=chat_id)
     query.answer()
     response = query.data
 
