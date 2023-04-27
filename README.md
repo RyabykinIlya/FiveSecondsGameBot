@@ -1,2 +1,2 @@
 # FiveSecondsGameBot
-telegram bot-game "answer in 5 seconds"
+Telegram bot-game "Think Fast & Play the 5 Second" Rule Board Game
